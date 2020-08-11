@@ -1,0 +1,15 @@
+<!-- Challenge -->
+<form id="ricardo" method="GET">
+    <input name="milos" type="text" class="form-control" placeholder="True" value="True">
+</form>
+<script>
+    ricardo.action = (new URL(location).searchParams.get('ricardo') || '#')
+    setTimeout(_ => {
+        ricardo.submit()
+    }, 2000)
+</script>
+
+<!--
+    ?ricardo=javascript:alert(1337)
+    action is where the form data is sent to identified by a URI.
+-->
