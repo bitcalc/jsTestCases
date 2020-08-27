@@ -1,0 +1,57 @@
+<!-- Challenge -->
+<script>
+    /* Helpers */
+    const bootstrapAlert = (msg, type) => {
+        return (`<div class="alert alert-${type}" role="alert">${DOMPurify.sanitize(msg)}</div>`)
+    }
+
+    document.getAlert = () => document.getElementById('alerts');
+</script>
+
+<script>
+    /* Welcome */
+    let name = (new URL(location).searchParams.get('name')) || "Pamela Landy";
+    document.write(
+        bootstrapAlert(`<b>Operation Treadstone</b>: Welcome <u>${name}</u>.`, 'info')
+    )
+</script>
+
+<!-- alerts -->
+<div id="alerts"></div>
+
+<script>
+    /* Handle to `#alert` */
+    let alerts = document.getAlert();
+
+    /* Treadstone Credentials */
+    let identification = Math.random().toString(36).slice(2);
+    let code = Math.floor(Math.random() * 89999 + 10000);
+
+    /* Default Credentials */
+    DEFAULTS = {};
+    DEFAULTS[identification] = code;
+</script>
+
+<script>
+    /* Optional Comment */
+    if (location.hash) {
+        let comment = document.createComment(decodeURI(location.hash).slice(1));
+        document.querySelector('#alerts').appendChild(comment);
+    }
+</script>
+
+<script>
+    /* Use `DEFAULTS` to init `SECRETS` */
+    SECRETS = DEFAULTS
+
+    /* Increment the `code` before the check */
+    let secretKey = new URL(location).searchParams.get('key') || "TREADSTONE_WEBB";
+    SECRETS[secretKey] += 1;
+
+    /* Authorization Check */
+    if (SECRETS[secretKey] === SECRETS[identification]) {
+        confirm(`Jesus Christ, it's Jason Bourne!`)
+    } else {
+        confirm(`You ain't David Webb!`)
+    }
+</script>

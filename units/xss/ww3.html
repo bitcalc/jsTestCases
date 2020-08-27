@@ -1,0 +1,49 @@
+<!-- Challenge -->
+<div>
+    <h4>Meme Code</h4>
+    <textarea class="form-control" id="meme-code" rows="4"></textarea>
+    <div id="notify"></div>
+</div>
+
+<script>
+    /* Utils */
+    const escape = (dirty) => unescape(dirty).replace(/[<>'"=]/g, '');
+    const memeTemplate = (img, text) => {
+        return (`<style>@import url('https://fonts.googleapis.com/css?family=Oswald:700&display=swap');`+
+            `.meme-card{margin:0 auto;width:300px}.meme-card>img{width:300px}`+
+            `.meme-card>h1{text-align:center;color:#fff;background:black;margin-top:-5px;`+
+            `position:relative;font-family:Oswald,sans-serif;font-weight:700}</style>`+
+            `<div class="meme-card"><img src="${img}"><h1>${text}</h1></div>`)
+    }
+    const memeGen = (that, notify) => {
+        if (text && img) {
+            template = memeTemplate(img, text)
+
+            if (notify) {
+                html = (`<div class="alert alert-warning" role="alert"><b>Meme</b> created from ${DOMPurify.sanitize(text)}</div>`)
+            }
+
+            setTimeout(_ => {
+                $('#status').remove()
+                notify ? ($('#notify').html(html)) : ''
+                $('#meme-code').text(template)
+            }, 1000)
+        }
+    }
+</script>
+
+<script>
+    /* Main */
+    let notify = false;
+    let text = new URL(location).searchParams.get('text')
+    let img = new URL(location).searchParams.get('img')
+    if (text && img) {
+        document.write(
+            `<div class="alert alert-primary" role="alert" id="status">`+
+            `<img class="circle" src="${escape(img)}" onload="memeGen(this, notify)">`+
+            `Creating meme... (${DOMPurify.sanitize(text)})</div>`
+        )
+    } else {
+        $('#meme-code').text(memeTemplate('https://i.imgur.com/PdbDexI.jpg', 'When you get that WW3 draft letter'))
+    }
+</script>

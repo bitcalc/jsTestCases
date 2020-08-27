@@ -1,0 +1,62 @@
+<!-- Challenge -->
+<div id="bois">
+</div>
+
+<script>
+    /* Variables */
+    let safeTags = ['a', 'area', 'b', 'br', 'col', 'code', 'div', 'em', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'iframe', 'img', 'li', 'ol', 'p', 'pre', 's', 'small', 'span', 'sub', 'sup', 'strong', 'u', 'ul']
+    let forbiddenAttrs = ['style', 'srcdoc']
+    let cssSafe = /[^a-zA-Z0-9\s\-\,\:\_\(\)\{\}\"\'\.\#\;\%]/g
+
+    /* Inputs */
+    let boi = `<h1>${(new URL(location).searchParams.get('boi')) || 'Neo'}</h1>`
+    let clean = DOMPurify.sanitize(boi, { ALLOWED_TAGS: safeTags, FORBID_ATTR: forbiddenAttrs })
+    let bois = document.getElementById('bois')
+    bois.innerHTML += clean;
+
+    /* Custom Style JSON */
+    let custom = (new URL(location).searchParams.get('custom')) || ""
+    custom = custom.replace(cssSafe, '')
+    if (custom) {
+        customStyles = JSON.parse(custom)
+        let comment = document.createComment(customStyles)
+        bois.appendChild(comment)
+    }
+
+    /* Configuration */
+    window.CONFIG = {
+        color: "lime",
+        backgroundColor: "#000"
+    }
+</script>
+
+<script>
+    /* Generic Style Setter */
+    function styleSetter(styles, execStr) {
+        for (var style in styles) {
+            if (styles.hasOwnProperty(style)) {
+                eval(execStr)
+            }
+        }
+    }
+
+    /* Default Styles */
+    window.DEFAULTS = {
+        borderRadius: "5px",
+        fontFamily: "Space Mono",
+        fontWeight: "700",
+        letterSpacing: "4px",
+        padding: "20px",
+        textAlign: "center",
+        width: "500px"
+    }
+    styleSetter(DEFAULTS, `CONFIG[style] = styles[style]`)
+
+    /* Custom Styles */
+    if (window.customStyles) {
+        styleSetter(customStyles, `CONFIG[style] = customStyles[style]`)
+    }
+
+    /* Stylise! */
+    styleSetter(CONFIG, `bois.firstElementChild.style[style] = CONFIG[style]`)
+</script>

